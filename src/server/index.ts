@@ -35,6 +35,22 @@ function authenticate(id: string, _req: Request, res: Response) {
   res.cookie(COOKIE, token, { httpOnly: true });
 }
 
+app.get("/current-user", (req, res) => {
+  try {
+    const token = req.cookies[COOKIE];
+    const result = jsonwebtoken.verify(token, SECRET) as { id: string };
+    console.log(result);
+    res.json({ id: result.id });
+  } catch (e) {
+    res.status(404).end();
+  }
+});
+
+app.post("/logout", (_req, res) => {
+  res.cookie(COOKIE, "", { httpOnly: true });
+  res.status(200).end();
+});
+
 app.post<{}, {}, NewUser>("/users", (req, res) => {
   const user: User = { ...req.body, id: (Math.random() * 10000).toFixed() };
   allUsers.push(user);

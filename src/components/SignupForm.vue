@@ -47,12 +47,7 @@ async function handleSubmit() {
       :status="usernameStatus"
       type="text"
     />
-    <Forminput
-      name="Password"
-      v-model="password"
-      type="password"
-      :status="passwordStatus"
-    />
+    <Forminput name="Password" v-model="password" type="password" :status="passwordStatus" />
     <button :disabled="isInvalid" class="button">Submit</button>
   </form>
 </template>
