@@ -3,8 +3,6 @@ import { ref, onMounted, watch } from "vue";
 import { Post, TimelinePost } from "../posts";
 import { marked } from "marked";
 import debounce from "lodash/debounce";
-import { usePosts } from "../stores/posts";
-import { useRouter } from "vue-router";
 import highlightjs from "highlight.js";
 import { useUsers } from "../stores/users";
 
@@ -12,13 +10,15 @@ const props = defineProps<{
   post: TimelinePost | Post;
 }>();
 
+const emit = defineEmits<{
+  (event: "submit", post: Post): void;
+}>();
+
 const title = ref(props.post.title);
 const content = ref(props.post.markdown);
 const html = ref("");
 const contentEditable = ref<HTMLDivElement>();
 
-const posts = usePosts();
-const router = useRouter();
 const usersStore = useUsers();
 
 function parseHtml(markdown: string) {
@@ -76,8 +76,7 @@ async function handleClick() {
     markdown: content.value,
     html: html.value,
   };
-  await posts.createPost(newPost);
-  router.push("/");
+  emit("submit", newPost);
 }
 </script>
 
