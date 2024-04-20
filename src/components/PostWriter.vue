@@ -92,7 +92,12 @@ async function handleClick() {
 
   <div class="columns">
     <div class="column">
-      <div contenteditable ref="contentEditable" @input="handleInput" />
+      <div
+        id="contenteditable"
+        ref="contentEditable"
+        contenteditable
+        @input="handleInput"
+      />
     </div>
     <div class="column">
       <div v-html="html"></div>
@@ -101,7 +106,11 @@ async function handleClick() {
 
   <div class="columns">
     <div class="column">
-      <button class="button is-primary is-pulled-right" @click="handleClick">
+      <button
+        id="submit"
+        class="button is-primary is-pulled-right"
+        @click="handleClick"
+      >
         Save Post
       </button>
     </div>

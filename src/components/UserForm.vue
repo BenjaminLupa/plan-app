@@ -44,12 +44,14 @@ async function handleSubmit() {
 <template>
   <form class="form" @submit.prevent="handleSubmit">
     <Forminput
+      data-testid="username"
       name="Username"
       v-model="username"
       :status="usernameStatus"
       type="text"
     />
     <Forminput
+      data-testid="password"
       name="Password"
       v-model="password"
       type="password"
